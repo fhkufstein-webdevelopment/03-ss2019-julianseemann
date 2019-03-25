@@ -31,8 +31,15 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
 
     //TODO implement the other events in the exact same way!
 
-
-
+    this.passwordField.onfocus = function(){
+        that.check();
+    };
+    this.passwordField.onkeyup = function(){
+        that.check();
+    };
+    this.passwordSubmitButton.onclick = function(){
+        that.check();
+    };
 
     //TODO end
 
@@ -70,8 +77,8 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
      */
     this.checkForLength = function() {
         //@todo
-        //have a look at javascript string methods and properties
-        return true; //this needs to be replaced!
+        if(this.passwordField.value.length >= this.minLength)
+            return true; //this needs to be replaced!
     };
 
     /*
@@ -81,7 +88,12 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //@todo
         //have a look at javascript string methods and properties
         //you could probably "match" it somehow
-        return true; //this needs to be replaced!
+        var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        var back = false;
+        if(format.test(this.passwordField.value)) {
+            back = true;
+            return back;
+        }
     };
 }
 
